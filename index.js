@@ -7,7 +7,7 @@
 
 const rp = require('request-promise');
 const assert = require('assert');
-const isEmptyObj = require('../../deps/isEmptyObj');
+const isEmptyObj = require('./deps/isEmptyObj');
 
 class koax {
 	constructor(){

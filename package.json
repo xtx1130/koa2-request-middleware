@@ -4,7 +4,8 @@
   "description": "koax request middleware",
   "main": "index.js",
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "node ./test/test.js",
+    "debug": "nodemon ./test/test.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,9 @@
   "homepage": "https://github.com/xtx1130/koax-request#readme",
   "dependencies": {
     "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
     "koa-router": "^7.2.1",
+    "request": "^2.81.0",
     "request-promise": "^4.2.1"
   },
   "devDependencies": {
