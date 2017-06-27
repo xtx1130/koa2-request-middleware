@@ -1,0 +1,32 @@
+{
+  "name": "koax-request",
+  "version": "2.0.0",
+  "description": "koax request middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://xtx1130@github.com/xtx1130/koax-request.git"
+  },
+  "keywords": [
+    "koa",
+    "request",
+    "middleware"
+  ],
+  "author": "xtx1130@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xtx1130/koax-request/issues"
+  },
+  "homepage": "https://github.com/xtx1130/koax-request#readme",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-router": "^7.2.1",
+    "request-promise": "^4.2.1"
+  },
+  "devDependencies": {
+    "testing": "^1.1.1"
+  }
+}
