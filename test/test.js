@@ -9,7 +9,7 @@ const Koax = require('../index');
 
 exports.test = module.exports.test = callback => {
 	let tests = {};
-	tests.Koas = async cllback =>{
+	tests.Koas = async callback =>{
 		console.log('test');
 		let koatest = new Koa();
 		let app = new Koa();
@@ -17,7 +17,7 @@ exports.test = module.exports.test = callback => {
 		let approuter = new koaRouter();
 		let koax = new Koax();
 		testrouter.get('/testkoax1',(ctx,next)=>{
-			ctx.body = "{'test':'ok','passing':'passed'}";
+			ctx.res = JSON.stringify({'test':'ok','passing':'passed'});
 			ctx.status = 200;
 		});
 		testrouter.post('/testkoax2',(ctx,next)=>{
@@ -31,6 +31,7 @@ exports.test = module.exports.test = callback => {
 			uri:'http://localhost:8012/testkoax1',
 			method:'GET'
 		}).then(data=>{
+			console.dir(data)
 			koax.setName('testKoax2').request({
 				uri:'http://localhost:8012/testKoax2',
 				method:'POST',
