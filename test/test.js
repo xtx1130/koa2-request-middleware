@@ -35,13 +35,12 @@ exports.test = module.exports.test = callback => {
 		koax.setName('testKoax1').cached().request({
 			uri:'http://localhost:8012/testkoax1',
 			method:'GET'
-		}).then(data=>{
+		})
+		.then(data=>{
 			koax.setName('testKoax2').request({
 				uri:'http://localhost:8012/testKoax2',
 				method:'GET',
 				qs:JSON.parse(data)
-			}).then(data => {
-				console.log(data)
 			});
 		});
 		// testserver.close((error) => {
@@ -52,8 +51,13 @@ exports.test = module.exports.test = callback => {
 			ctx.status = 200;
 		})
 		app.use(koax.middleware());
-		app.use(approuter.routes())
+		app.use(approuter.routes());
 		let server = app.listen('8011');
+		// let testrp = await rp({
+		// 	url:'http://localhost:8011/test'
+		// });
+		// console.log(testrp)
+		//testing.verify()
 		testing.success(callback);
 	}
 	testing.run(tests, 1000, callback);
