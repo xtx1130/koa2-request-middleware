@@ -27,6 +27,7 @@ class koax {
 		important: 因为为async函数，所以一定要放到链式最后调用，如果觉得不方便，以后改成use的形式
 	*/
 	async request(options, name) {
+		console.log('xtx for diaoyong')
 		let tplName = name || this.nameCache;
 		assert(tplName, 'no name has been declared.');
 		if (this.dataCache[tplName] && !isEmptyObj(this.data[tplName])) {

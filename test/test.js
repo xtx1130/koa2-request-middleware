@@ -12,7 +12,6 @@ const queryString = require('querystring');
 exports.test = module.exports.test = callback => {
 	let tests = {};
 	tests.Koas = async callback =>{
-		console.log('test');
 		let koatest = new Koa();
 		let app = new Koa();
 		let testrouter = new koaRouter();
@@ -53,10 +52,14 @@ exports.test = module.exports.test = callback => {
 		app.use(koax.middleware());
 		app.use(approuter.routes());
 		let server = app.listen('8011');
-		// let testrp = await rp({
-		// 	url:'http://localhost:8011/test'
-		// });
-		// console.log(testrp)
+		setTimeout(()=>{
+			let testrp = rp({
+				url:'http://localhost:8011/test',
+				method:'GET'
+			}).then(data=>{
+				console.log(data)
+			});
+		},500)
 		//testing.verify()
 		testing.success(callback);
 	}
