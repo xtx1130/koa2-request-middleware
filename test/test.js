@@ -31,18 +31,17 @@ exports.test = module.exports.test = callback => {
 		koatest.use(koabody());
 		koatest.use(testrouter.routes());
 		let testserver = koatest.listen('8012');
-		koax.use(()=>{
-			koax.setName('testKoax1').cached().request({
+		koax.mount(()=>{
+			return koax.setName('testKoax1').cached().request({
 				uri:'http://localhost:8012/testkoax1',
 				method:'GET'
-			})
-			.then(data=>{
-				koax.setName('testKoax2').request({
+			}).then(data => {
+				return koax.setName('testKoax2').request({
 					uri:'http://localhost:8012/testKoax2',
 					method:'GET',
 					qs:JSON.parse(data)
 				});
-			})
+			});
 		});
 		// testserver.close((error) => {
 		// 	testing.check(error, 'Could not stop server', callback);

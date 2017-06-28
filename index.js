@@ -41,7 +41,7 @@ class koax {
 		}
 	}
 	/*use function*/
-	use(func) {
+	mount(func) {
 		assert(typeof func === 'function','the arguments must be an function');
 		this.dispatchFunction.push(func);
 		return this;
@@ -58,12 +58,17 @@ class koax {
 	middleware(){
 		let _this = this;
 		let dispatch = async (ctx,next) => {
-			ctx.koax = ctx.koax||{};
-			for(let i = 0;i < this.dispatchFunction.length;i++){
-				await this.dispatchFunction[i]()
+			try{
+				ctx.koax = ctx.koax||{};
+				for(let i = 0;i < this.dispatchFunction.length;i++){
+					var s = await this.dispatchFunction[i]()
+				}
+				let copy = Object.assign(ctx.koax,_this.data);
+				console.log(s,ctx.koax)
+				await next();
+			}catch(e){
+				throw new Error(e)
 			}
-			let copy = Object.assign(ctx.koax,_this.data);
-			await next();
 		}
 		return dispatch;
 	}
