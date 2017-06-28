@@ -30,11 +30,12 @@ class koax {
 		let tplName = name || this.nameCache;
 		assert(tplName, 'no name has been declared.');
 		if (this.dataCache[tplName] && !isEmptyObj(this.data[tplName])) {
-			return this;
+			return this.dataCache[tplName];
 		}
 		try {
 			let res = await rp(options);
 			this.data[tplName] = res;
+			return res;
 		} catch (e) {
 			throw e;
 		}
