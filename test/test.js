@@ -6,6 +6,8 @@ const testing = require('testing');
 const koabody = require('koa-body');
 const rp = require('request-promise');
 const Koax = require('../index');
+const url = require('url');
+const queryString = require('querystring');
 
 exports.test = module.exports.test = callback => {
 	let tests = {};
@@ -16,13 +18,16 @@ exports.test = module.exports.test = callback => {
 		let testrouter = new koaRouter();
 		let approuter = new koaRouter();
 		let koax = new Koax();
-		testrouter.get('/testkoax1',(ctx,next)=>{
-			ctx.res = JSON.stringify({'test':'ok','passing':'passed'});
+		testrouter.get('/testkoax1',async (ctx,next)=>{
+			ctx.body = JSON.stringify({test:'ok',passing:'passed'});
 			ctx.status = 200;
+			await next();
 		});
-		testrouter.post('/testkoax2',(ctx,next)=>{
-			ctx.body = `Request Body: ${JSON.stringify(ctx.request.body)}`;
+		testrouter.get('/testkoax2',async (ctx,next)=>{
+			let querystr = queryString.parse(url.parse(ctx.request.url).query)
+			ctx.body = `Request Body: ${JSON.stringify(querystr)}`;
 			ctx.status = 200;
+			await next();
 		});
 		koatest.use(koabody());
 		koatest.use(testrouter.routes());
@@ -31,11 +36,12 @@ exports.test = module.exports.test = callback => {
 			uri:'http://localhost:8012/testkoax1',
 			method:'GET'
 		}).then(data=>{
-			console.dir(data)
 			koax.setName('testKoax2').request({
 				uri:'http://localhost:8012/testKoax2',
-				method:'POST',
-				body:data
+				method:'GET',
+				qs:JSON.parse(data)
+			}).then(data => {
+				console.log(data)
 			});
 		});
 		// testserver.close((error) => {
