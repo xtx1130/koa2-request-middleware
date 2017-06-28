@@ -31,16 +31,18 @@ exports.test = module.exports.test = callback => {
 		koatest.use(koabody());
 		koatest.use(testrouter.routes());
 		let testserver = koatest.listen('8012');
-		koax.setName('testKoax1').cached().request({
-			uri:'http://localhost:8012/testkoax1',
-			method:'GET'
-		})
-		.then(data=>{
-			koax.setName('testKoax2').request({
-				uri:'http://localhost:8012/testKoax2',
-				method:'GET',
-				qs:JSON.parse(data)
-			});
+		koax.use(()=>{
+			koax.setName('testKoax1').cached().request({
+				uri:'http://localhost:8012/testkoax1',
+				method:'GET'
+			})
+			.then(data=>{
+				koax.setName('testKoax2').request({
+					uri:'http://localhost:8012/testKoax2',
+					method:'GET',
+					qs:JSON.parse(data)
+				});
+			})
 		});
 		// testserver.close((error) => {
 		// 	testing.check(error, 'Could not stop server', callback);
@@ -52,14 +54,12 @@ exports.test = module.exports.test = callback => {
 		app.use(koax.middleware());
 		app.use(approuter.routes());
 		let server = app.listen('8011');
-		setTimeout(()=>{
-			let testrp = rp({
-				url:'http://localhost:8011/test',
-				method:'GET'
-			}).then(data=>{
-				console.log(data)
-			});
-		},500)
+		let testrp = rp({
+			url:'http://localhost:8011/test',
+			method:'GET'
+		}).then(data=>{
+			console.log(data)
+		});
 		//testing.verify()
 		testing.success(callback);
 	}

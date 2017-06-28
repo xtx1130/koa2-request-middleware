@@ -14,11 +14,11 @@ class koax {
 		this.data = {};
 		this.nameCache = void 0;
 		this.dataCache = {};
+		this.dispatchFunction = [];
 	}
 	//设置数据的key
 	setName(name){
-		assert(!this.data[name],'this name has been declared.');
-		this.data[name]={};
+		this.data[name]=this.data[name]||{};
 		this.nameCache = name;
 		return this;
 	}
@@ -27,11 +27,10 @@ class koax {
 		important: 因为为async函数，所以一定要放到链式最后调用，如果觉得不方便，以后改成use的形式
 	*/
 	async request(options, name) {
-		console.log('xtx for diaoyong')
 		let tplName = name || this.nameCache;
 		assert(tplName, 'no name has been declared.');
 		if (this.dataCache[tplName] && !isEmptyObj(this.data[tplName])) {
-			return this.dataCache[tplName];
+			return this.data[tplName];
 		}
 		try {
 			let res = await rp(options);
@@ -40,6 +39,12 @@ class koax {
 		} catch (e) {
 			throw e;
 		}
+	}
+	/*use function*/
+	use(func) {
+		assert(typeof func === 'function','the arguments must be an function');
+		this.dispatchFunction.push(func);
+		return this;
 	}
 	/*
 	 *@description 为request请求添加缓存，防止下一次请求的时候进行http调用
@@ -54,6 +59,9 @@ class koax {
 		let _this = this;
 		let dispatch = async (ctx,next) => {
 			ctx.koax = ctx.koax||{};
+			for(let i = 0;i < this.dispatchFunction.length;i++){
+				await this.dispatchFunction[i]()
+			}
 			let copy = Object.assign(ctx.koax,_this.data);
 			await next();
 		}
