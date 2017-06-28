@@ -64,7 +64,6 @@ class koax {
 					var s = await this.dispatchFunction[i]()
 				}
 				let copy = Object.assign(ctx.koax,_this.data);
-				console.log(s,ctx.koax)
 				await next();
 			}catch(e){
 				throw new Error(e)

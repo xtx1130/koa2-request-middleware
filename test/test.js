@@ -43,9 +43,6 @@ exports.test = module.exports.test = callback => {
 				});
 			});
 		});
-		// testserver.close((error) => {
-		// 	testing.check(error, 'Could not stop server', callback);
-		// });
 		approuter.get('/test',(ctx,next) => {
 			ctx.body = ctx.koax.testKoax2;
 			ctx.status = 200;
@@ -53,13 +50,19 @@ exports.test = module.exports.test = callback => {
 		app.use(koax.middleware());
 		app.use(approuter.routes());
 		let server = app.listen('8011');
-		let testrp = rp({
+		let testrp = await rp({
 			url:'http://localhost:8011/test',
 			method:'GET'
 		}).then(data=>{
-			console.log(data)
+			testing.verify( data.length, 'the response data must have contents');
+			return new Promise((res,rej)=>{res()});
 		});
-		//testing.verify()
+		testserver.close((error) => {
+			testing.check(error, 'Could not stop server', callback);
+		});
+		server.close((error) => {
+			testing.check(error, 'Could not stop server', callback);
+		});
 		testing.success(callback);
 	}
 	testing.run(tests, 1000, callback);
