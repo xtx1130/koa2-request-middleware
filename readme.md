@@ -30,17 +30,17 @@ ctx.koax.testKoax1 is the response of testKoax1's request, <b>you can read the d
 ### 2.APIs
 
 + koax.mount(Function) //Function must return a promise  
-Use this API to mount request
+Use this API to mount request, and it will return koax instance
 
 + koax.setName(String)  
-Use this API to set a name for response data
+Use this API to set a name for response data, and it will return koax instance
 
 + koax.request(options,[name])  
 If you use the call chaining(koax.setName().request()),you can ignore the second argument,koax will cache the name you have setted.
-Options details please see [request-promise](https://github.com/request/request-promise) for more information
+Options details please see [request-promise](https://github.com/request/request-promise) for more information, and it will return promise instance
 
 + koax.cached([name])  
-If you use the call chaining(koax.setName().cached()),you can ignore the second argument.When you use cached(), koax will only make request for once time and store the data in memory, and next time will take the data in memory
+If you use the call chaining(koax.setName().cached()),you can ignore the second argument.When you use cached(), koax will only make request for once time and store the data in memory, and next time will take the data in memory, and it will return koax instance
 
 + koax.middleware()  
 Make koax as a middleware in koa2
