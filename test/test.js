@@ -23,7 +23,7 @@ exports.test = module.exports.test = callback => {
 			await next();
 		});
 		testrouter.get('/testkoax2',async (ctx,next)=>{
-			let querystr = queryString.parse(url.parse(ctx.request.url).query)
+			let querystr = ctx.request.query;
 			ctx.body = `Request Body: ${JSON.stringify(querystr)}`;
 			ctx.status = 200;
 			await next();
