@@ -54,6 +54,30 @@ class koax {
 		this.dataCache[tplName] = true;
 		return this;
 	}
+	cancelCache(name){
+		let tplName = name || this.nameCache;
+		Object.defineProperty(this.dataCache,tplName,{
+			get: () => {
+				return false;
+			},
+			set: (val) => {
+				return false;
+			}
+		})
+		return this;
+	}
+	reCache(name){
+		let tplName = name || this.nameCache;
+		Object.defineProperty(this.dataCache,tplName,{
+			get: () => {
+				return true;
+			},
+			set: (val) => {
+				return true;
+			}
+		})
+		return this;
+	}
 	//返回供koas调用的中间件，这里data挂在到ctx上
 	middleware(){
 		let _this = this;
@@ -70,6 +94,12 @@ class koax {
 			}
 		}
 		return dispatch;
+	}
+	get list(){
+		return Object.keys(this.data)
+	}
+	set list(val){
+		return Object.keys(this.data)
 	}
 }
 exports = module.exports = koax;
