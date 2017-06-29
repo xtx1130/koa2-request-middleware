@@ -7,3 +7,6 @@ script: npm test
 os:
   - linux
 after_script: npm run cov
+env:
+  global:
+    - NODE_ENV=travis

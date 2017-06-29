@@ -44,7 +44,9 @@ exports.test = module.exports.test = callback => {
 			});
 		});
 		approuter.get('/test',(ctx,next) => {
-			ctx.body = ctx.koax.testKoax2;
+			koax.cancelCache('testKoax1');
+			koax.reCache('testKoax1');
+			ctx.body = ctx.koax.testKoax1;
 			ctx.status = 200;
 		})
 		app.use(koax.middleware());
@@ -54,16 +56,22 @@ exports.test = module.exports.test = callback => {
 			url:'http://localhost:8011/test',
 			method:'GET'
 		}).then(data=>{
-			testing.verify( data.length, 'the response data must have contents');
+			testing.verify(data.length, 'the response data must have contents');
 			return new Promise((res,rej)=>{res()});
 		});
-		testserver.close((error) => {
-			testing.check(error, 'Could not stop server', callback);
-		});
-		server.close((error) => {
-			testing.check(error, 'Could not stop server', callback);
-		});
-		testing.success(callback);
+		koax.list = 1;
+		testing.verify(Array.isArray(koax.list), 'koax.list must be an array');
+		if(process.env.NODE_ENV === 'travis'){
+			testserver.close((error) => {
+				testing.check(error, 'Could not stop server', callback);
+			});
+			server.close((error) => {
+				testing.check(error, 'Could not stop server', callback);
+			});
+			testing.success(callback);
+		}else{
+			testing.success(callback);
+		}
 	}
 	testing.run(tests, 1000, callback);
 }
