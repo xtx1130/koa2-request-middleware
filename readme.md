@@ -25,7 +25,7 @@ approuter.get('/test',(ctx,next) => {
 app.use(koax.middleware());
 app.use(approuter.routes());
 ```
-ctx.koax.testKoax1 is the response of testKoax1's request, <b>you can read the data in ctx.koax any middleware you want.</b>
+ctx.koax.testKoax1 is the response of testKoax1's request, <b>you can read the data ctx.koax in any middleware you want.</b>
 
 ### 2.APIs
 
