@@ -52,7 +52,7 @@ This api is forced to change one of the requests from cached to uncached, it wil
 + koax.reCache([name])  
 This api is forced to change one of the requests from uncached to cached, it will return koax instance
 
-+ koax.list
++ koax.list  
 It will show you how many request is mounted on this instance of koax
 
 ### 3.request chain usage
