@@ -23,8 +23,7 @@ class koax {
 		return this;
 	}
 	/*
-	 *@description request请求接口，这里数据挂载到data视图上，
-		important: 因为为async函数，所以一定要放到链式最后调用，如果觉得不方便，以后改成use的形式
+	 *@description request请求接口，这里数据挂载到data视图上
 	*/
 	async request(options, name) {
 		let tplName = name || this.nameCache;
