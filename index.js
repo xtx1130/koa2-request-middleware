@@ -9,24 +9,26 @@ const rp = require('request-promise');
 const assert = require('assert');
 const isEmptyObj = require('./deps/isEmptyObj');
 
+const praviteName = Symbol.for('koax.NameCache');
+
 class koax {
 	constructor(){
 		this.data = {};
-		this.nameCache = void 0;
+		this[praviteName] = void 0;
 		this.dataCache = {};
 		this.dispatchFunction = [];
 	}
 	//设置数据的key
 	setName(name){
 		this.data[name]=this.data[name]||{};
-		this.nameCache = name;
+		this[praviteName] = name;
 		return this;
 	}
 	/*
 	 *@description request请求接口，这里数据挂载到data视图上
 	*/
 	async request(options, name) {
-		let tplName = name || this.nameCache;
+		let tplName = name || this[praviteName];
 		assert(tplName, 'no name has been declared.');
 		if (this.dataCache[tplName] && !isEmptyObj(this.data[tplName])) {
 			return this.data[tplName];
@@ -49,12 +51,12 @@ class koax {
 	 *@description 为request请求添加缓存，防止下一次请求的时候进行http调用
 	*/
 	cached(name) {
-		let tplName = name || this.nameCache;
+		let tplName = name || this[praviteName];
 		this.dataCache[tplName] = true;
 		return this;
 	}
 	cancelCache(name){
-		let tplName = name || this.nameCache;
+		let tplName = name || this[praviteName];
 		Object.defineProperty(this.dataCache,tplName,{
 			get: () => {
 				return false;
@@ -67,7 +69,7 @@ class koax {
 		return this;
 	}
 	reCache(name){
-		let tplName = name || this.nameCache;
+		let tplName = name || this[praviteName];
 		Object.defineProperty(this.dataCache,tplName,{
 			get: () => {
 				return true;
