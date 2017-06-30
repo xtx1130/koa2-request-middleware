@@ -61,7 +61,7 @@ exports.test = module.exports.test = callback => {
 			koax.dataCache.testKoax1 = false;
 			testing.verify(koax.dataCache.testKoax1 === true, 'when using cancelCache the varibles must be true');
 			testing.verify(typeof ctx.koax.testkoa1Only == 'string','testkoa1Only must exists');
-			ctx.body = ctx.koax.testKoax1;
+			ctx.body = ctx.koax.testKoax2;
 			ctx.status = 200;
 		})
 		app.use(koax.middleware());

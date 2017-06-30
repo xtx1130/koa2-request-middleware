@@ -8,8 +8,10 @@
 const rp = require('request-promise');
 const assert = require('assert');
 const isEmptyObj = require('./deps/isEmptyObj');
+const isAsync = require('./deps/isAsyncFunc');
 
 const privateName = Symbol.for('koax.NameCache');
+const privateAsync = Symbol.for('koax.privateAsync');
 
 class koax {
 	constructor(){
@@ -17,6 +19,9 @@ class koax {
 		this[privateName] = void 0;
 		this.dataCache = {};
 		this.dispatchFunction = [];
+		this[privateAsync] = async (next) => {
+			return await next();
+		}
 	}
 	//设置数据的key
 	setName(name){
@@ -91,7 +96,7 @@ class koax {
 					var s = await this.dispatchFunction[i]()
 				}
 				let copy = Object.assign(ctx.koax,_this.data);
-				await next();
+				!isAsync(next)?this[privateAsync](next):await next();
 			}catch(e){
 				throw new Error(e)
 			}
