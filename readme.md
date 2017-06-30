@@ -1,4 +1,4 @@
-## koax-request
+## koa2-request-middleware
 [![Build Status](https://travis-ci.org/xtx1130/koax-request.svg?branch=master)](https://travis-ci.org/xtx1130/koax-request)
 [![Coverage Status](https://coveralls.io/repos/github/xtx1130/koax-request/badge.svg?branch=master)](https://coveralls.io/github/xtx1130/koax-request?branch=master)  
 > a middleware for koa2 to separate request and response data's use
@@ -6,7 +6,7 @@
 ### 1.Usage
 
 ```js
-const Koax = require('koax-request');
+const Koax = require('koa2-request-middleware');
 const Koa = require('koa');
 const koaRouter =  require('koa-router');
 let koax = new Koax();
@@ -49,10 +49,10 @@ Make koax as a middleware in koa2
 + koax.cancelCache([name])  
 This api is forced to change one of the requests from cached to uncached, it will return koax instance
 
-+ koa.reCache([name])  
++ koax.reCache([name])  
 This api is forced to change one of the requests from uncached to cached, it will return koax instance
 
-+ koa.list
++ koax.list
 It will show you how many request is mounted on this instance of koax
 
 ### 3.request chain usage

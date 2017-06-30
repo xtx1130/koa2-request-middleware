@@ -1,7 +1,7 @@
 {
-  "name": "koax-request",
+  "name": "koa2-request-middleware",
   "version": "2.0.0",
-  "description": "koax request middleware",
+  "description": "koa2 request middleware",
   "main": "index.js",
   "scripts": {
     "test": "node ./test/test.js",
