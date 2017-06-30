@@ -1,5 +1,8 @@
 'use strict';
 
+require("babel-core/register");
+require("babel-polyfill");
+
 const Koa = require('koa');
 const koaRouter =  require('koa-router');
 const testing = require('testing');
@@ -17,6 +20,7 @@ exports.test = module.exports.test = callback => {
 		let testrouter = new koaRouter();
 		let approuter = new koaRouter();
 		let koax = new Koax();
+		testing.verify(typeof koax === 'object', 'koax must be an object');
 		testrouter.get('/testkoax1',async (ctx,next)=>{
 			ctx.body = JSON.stringify({test:'ok',passing:'passed'});
 			ctx.status = 200;
@@ -61,7 +65,7 @@ exports.test = module.exports.test = callback => {
 		});
 		koax.list = 1;
 		testing.verify(Array.isArray(koax.list), 'koax.list must be an array');
-		if(process.env.NODE_ENV === 'travis'){
+		//if(process.env.NODE_ENV === 'travis'){
 			testserver.close((error) => {
 				testing.check(error, 'Could not stop server', callback);
 			});
@@ -69,9 +73,9 @@ exports.test = module.exports.test = callback => {
 				testing.check(error, 'Could not stop server', callback);
 			});
 			testing.success(callback);
-		}else{
-			testing.success(callback);
-		}
+		// }else{
+		// 	testing.success(callback);
+		// }
 	}
 	testing.run(tests, 1000, callback);
 }
