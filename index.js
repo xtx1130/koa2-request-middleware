@@ -61,7 +61,8 @@ class koax {
 			},
 			set: (val) => {
 				return false;
-			}
+			},
+			configurable : true
 		})
 		return this;
 	}
@@ -73,7 +74,8 @@ class koax {
 			},
 			set: (val) => {
 				return true;
-			}
+			},
+			configurable : true
 		})
 		return this;
 	}

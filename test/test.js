@@ -44,12 +44,23 @@ exports.test = module.exports.test = callback => {
 					uri:'http://localhost:8012/testKoax2',
 					method:'GET',
 					qs:JSON.parse(data)
-				});
+				},'testKoax2');
 			});
 		});
+		koax.mount(()=>{
+			return koax.setName('testkoa1Only').cached().request({
+				uri:'http://localhost:8012/testkoax1',
+				method:'GET'
+			})
+		})
 		approuter.get('/test',(ctx,next) => {
 			koax.cancelCache('testKoax1');
+			koax.dataCache.testKoax1 = true;
+			testing.verify(koax.dataCache.testKoax1 === false, 'when using cancelCache the varibles must be false');
 			koax.reCache('testKoax1');
+			koax.dataCache.testKoax1 = false;
+			testing.verify(koax.dataCache.testKoax1 === true, 'when using cancelCache the varibles must be true');
+			testing.verify(typeof ctx.koax.testkoa1Only == 'string','testkoa1Only must exists');
 			ctx.body = ctx.koax.testKoax1;
 			ctx.status = 200;
 		})
