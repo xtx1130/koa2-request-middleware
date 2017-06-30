@@ -1,7 +1,7 @@
 ## koax-request
 [![Build Status](https://travis-ci.org/xtx1130/koax-request.svg?branch=master)](https://travis-ci.org/xtx1130/koax-request)
 [![Coverage Status](https://coveralls.io/repos/github/xtx1130/koax-request/badge.svg?branch=master)](https://coveralls.io/github/xtx1130/koax-request?branch=master)  
-> a middleware for koa2 to separate request and resopnse data's use
+> a middleware for koa2 to separate request and response data's use
 
 ### 1.Usage
 
