@@ -83,10 +83,8 @@ exports.test = module.exports.test = callback => {
 			server.close((error) => {
 				testing.check(error, 'Could not stop server', callback);
 			});
-			testing.success(callback);
-		}else{
-			testing.success(callback);
 		}
+		testing.success(callback);
 	}
 	testing.run(tests, 1000, callback);
 }
