@@ -1,6 +1,6 @@
 {
   "name": "koa2-request-middleware",
-  "version": "2.0.3",
+  "version": "2.0.5",
   "description": "koa2 request middleware",
   "main": "index.js",
   "scripts": {
