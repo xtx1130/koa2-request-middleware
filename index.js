@@ -48,7 +48,7 @@ class koax {
 	}
 	/*use function*/
 	mount(func) {
-		assert(typeof func === 'function','the arguments must be an function');
+		assert(isAsync(func),'the arguments must be an Async function');
 		this.dispatchFunction.push(func);
 		return this;
 	}

@@ -59,17 +59,16 @@ It will show you how many request is mounted on this instance of koax
 
 You can use request like this
 ```js
-koax.mount(()=>{
-	return koax.setName('testKoax1').cached().request({
+koax.mount(async ()=>{
+	let tes1 = await koax.setName('testKoax1').cached().request({
 		uri:'http://localhost:8012/testkoax1',
 		method:'GET'
-	}).then(data => {
-		return koax.setName('testKoax2').request({
+	});
+	await koax.setName('testKoax2').request({
 			uri:'http://localhost:8012/testKoax2',
 			method:'GET',
-			qs:JSON.parse(data)
-		});
-	});
+			qs:JSON.parse(tes1)
+	},'testKoax2');
 });
 ```
-When the first request is finished, the data will store in memory and use request.then() to pass on data as next request params. <b>Please pay attention to promise return required in mount()</b>
+<b>Please pay attention to promise return required in mount()</b>
