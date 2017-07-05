@@ -35,24 +35,21 @@ exports.test = module.exports.test = callback => {
 		koatest.use(koabody());
 		koatest.use(testrouter.routes());
 		let testserver = koatest.listen('8012');
-		koax.mount(()=>{
-			return koax.setName('testKoax1').cached().request({
+		koax.mount(async ()=>{
+			let tes1 = await koax.setName('testKoax1').cached().request({
 				uri:'http://localhost:8012/testkoax1',
 				method:'GET'
-			}).then(data => {
-				return koax.setName('testKoax2').request({
+			});
+			await koax.setName('testKoax2').request({
 					uri:'http://localhost:8012/testKoax2',
 					method:'GET',
-					qs:JSON.parse(data)
+					qs:JSON.parse(tes1)
 				},'testKoax2');
-			});
 		});
-		koax.mount(()=>{
-			return koax.setName('testkoa1Only').cached().request({
-				uri:'http://localhost:8012/testkoax1',
-				method:'GET'
-			})
-		})
+		koax.setName('testkoa1Only').cached().request({
+			uri:'http://localhost:8012/testkoax1',
+			method:'GET'
+		});
 		approuter.get('/test',(ctx,next) => {
 			koax.cancelCache('testKoax1');
 			koax.dataCache.testKoax1 = true;
