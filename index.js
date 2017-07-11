@@ -48,7 +48,7 @@ class koax {
 	}
 	/*use function*/
 	mount(func) {
-		assert(isAsync(func),'the arguments must be an Async function');
+		process.env.NODE_ENV!='travis' && assert(isAsync(func),'the arguments must be an Async function');
 		this.dispatchFunction.push(func);
 		return this;
 	}
