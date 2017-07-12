@@ -5,5 +5,5 @@
  */
 'use strict';
 exports = module.exports = func => {
-	return Object.prototype.toString.call(func) === '[object AsyncFunction]'
+	return func.constructor.name == 'AsyncFunction';
 }
