@@ -60,7 +60,7 @@ exports.test = module.exports.test = callback => {
 			testing.verify(typeof ctx.koax.testkoa1Only == 'string','testkoa1Only must exists');
 			ctx.body = ctx.koax.testKoax2;
 			ctx.status = 200;
-		})
+		});
 		app.use(koax.middleware());
 		app.use(approuter.routes());
 		let server = app.listen('8011');
