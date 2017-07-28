@@ -5,6 +5,8 @@
 
 ### 1.Usage
 
+#### Use with koa
+
 ```js
 const Koax = require('koa2-request-middleware');
 const Koa = require('koa');
@@ -27,6 +29,29 @@ app.use(approuter.routes());
 ```
 ctx.koax.testKoax1 is the response of testKoax1's request, <b>you can read the data ctx.koax in any middleware you want.</b>  
 For more examples you can take a look at [test](https://github.com/xtx1130/koax-request/blob/master/test/test.js)
+
+#### Use with koa-router
+
+```js
+const Koax = require('koa2-request-middleware');
+const Koa = require('koa');
+const koaRouter =  require('koa-router');
+let koax = new Koax();
+let app = new Koa();
+let approuter = new KoaRouter();
+koax.mount(()=>{
+	return koax.setName('testKoax1').cached().request({
+		uri:'http://localhost:8012/testkoax1',
+		method:'GET'
+	})
+});
+approuter.get('/test',koax.middleware(),(ctx,next) => {
+	ctx.body = ctx.koax.testKoax1;
+	ctx.status = 200;
+});
+app.use(approuter.routes());
+```
+This usage will just make request when come in router '/test',but the ctx.koax is in global.
 
 ### 2.APIs
 
