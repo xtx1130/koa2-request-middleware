@@ -22,7 +22,7 @@ exports.test = module.exports.test = callback => {
 		testing.verify(typeof koax === 'object', 'koax must be an object');
 		
 		koax.mount(async ()=>{
-			let tes1 = await koax.setName('testKoax1').cached().request({
+			let tes1 = await koax.setName('testKoax1').cached('testKoax1').request({
 				uri:'http://localhost:8012/testkoax1',
 				method:'GET'
 			});
