@@ -11,30 +11,16 @@ const rp = require('request-promise');
 const Koax = require('../index');
 const url = require('url');
 const queryString = require('querystring');
+const mockserver = require('./mockserver');
 
 exports.test = module.exports.test = callback => {
 	let tests = {};
 	tests.Koas = async callback =>{
-		let koatest = new Koa();
 		let app = new Koa();
-		let testrouter = new koaRouter();
 		let approuter = new koaRouter();
 		let koax = new Koax();
 		testing.verify(typeof koax === 'object', 'koax must be an object');
-		testrouter.get('/testkoax1',async (ctx,next)=>{
-			ctx.body = JSON.stringify({test:'ok',passing:'passed'});
-			ctx.status = 200;
-			await next();
-		});
-		testrouter.get('/testkoax2',async (ctx,next)=>{
-			let querystr = ctx.request.query;
-			ctx.body = `Request Body: ${JSON.stringify(querystr)}`;
-			ctx.status = 200;
-			await next();
-		});
-		koatest.use(koabody());
-		koatest.use(testrouter.routes());
-		let testserver = koatest.listen('8012');
+		
 		koax.mount(async ()=>{
 			let tes1 = await koax.setName('testKoax1').cached().request({
 				uri:'http://localhost:8012/testkoax1',
@@ -74,7 +60,7 @@ exports.test = module.exports.test = callback => {
 		koax.list = 1;
 		testing.verify(Array.isArray(koax.list), 'koax.list must be an array');
 		if(process.env.NODE_ENV === 'travis'){
-			testserver.close((error) => {
+			mockserver.close((error) => {
 				testing.check(error, 'Could not stop server', callback);
 			});
 			server.close((error) => {
