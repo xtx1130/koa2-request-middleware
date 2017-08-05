@@ -5,7 +5,7 @@
 
 ### 1.Usage
 
-#### Use with koa
+#### Use with koa2
 
 ```js
 const Koax = require('koa2-request-middleware');
