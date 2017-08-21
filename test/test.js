@@ -19,6 +19,8 @@ exports.test = module.exports.test = callback => {
 		let app = new Koa();
 		let approuter = new koaRouter();
 		let koax = new Koax();
+		let koaxrouter = new Koax();
+
 		testing.verify(typeof koax === 'object', 'koax must be an object');
 		
 		koax.mount(async ()=>{
@@ -32,6 +34,7 @@ exports.test = module.exports.test = callback => {
 					qs:JSON.parse(tes1)
 				},'testKoax2');
 		});
+
 		koax.setName('testkoa1Only').cached().request({
 			uri:'http://localhost:8012/testkoax1',
 			method:'GET'
@@ -46,6 +49,15 @@ exports.test = module.exports.test = callback => {
 			testing.verify(typeof ctx.koax.testkoa1Only == 'string','testkoa1Only must exists');
 			ctx.body = ctx.koax.testKoax2;
 			ctx.status = 200;
+		});
+		koaxrouter.mount(async () => {
+			let tes = await koaxrouter.setName('testKoaxRouter').request({
+				uri:'http://localhost:8012/testkoax1',
+				method:'GET'
+			});
+		});
+		approuter.get('/testrouter',koaxrouter.middleware(),(ctx,next)=>{
+			testing.verify( ctx.koax.testKoaxRouter === true , 'Use with koa-router example' );
 		});
 		app.use(koax.middleware());
 		app.use(approuter.routes());
