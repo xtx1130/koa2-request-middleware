@@ -48,7 +48,7 @@ class koax {
 	}
 	/*use function*/
 	mount(func) {
-		/* istanbul ignore next*/process.env.NODE_ENV!='travis' && assert(isAsync(func),'the arguments must be an Async function');
+		/* istanbul ignore next */process.env.NODE_ENV!='travis' && assert(isAsync(func),'the arguments must be an Async function');
 		this.dispatchFunction.push(func);
 		return this;
 	}
