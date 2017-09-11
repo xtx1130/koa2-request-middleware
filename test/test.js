@@ -35,7 +35,7 @@ exports.test = module.exports.test = callback => {
 				},'testKoax2');
 		});
 
-		koax.setName('testkoa1Only').cached().request({
+		koax.setName('testkoa1Only').cached().cancelCache().request({
 			uri:'http://localhost:8012/testkoax1',
 			method:'GET'
 		});
