@@ -96,4 +96,4 @@ koax.mount(async ()=>{
 	},'testKoax2');
 });
 ```
-<b>Please pay attention to promise return required in mount()</b>
+<b>Please pay attention to koax.mount() function argument needs a promise </b>
