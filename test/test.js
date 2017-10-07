@@ -28,7 +28,7 @@ exports.test = module.exports.test = callback => {
 				uri:'http://localhost:8012/testkoax1',
 				method:'GET'
 			});
-			await koax.setName('testKoax2').request({
+			await koax.setName('testKoax2').cached().request({
 					uri:'http://localhost:8012/testKoax2',
 					method:'GET',
 					qs:JSON.parse(tes1)
