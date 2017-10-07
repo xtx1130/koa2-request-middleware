@@ -35,6 +35,7 @@ class koax {
 	async request(options, name) {
 		let tplName = name || this[privateName];
 		assert(tplName, 'no name has been declared.');
+		/* istanbul ignore else */
 		if (this.dataCache[tplName] && !isEmptyObj(this.data[tplName])) {
 			return this.data[tplName];
 		}
@@ -48,7 +49,7 @@ class koax {
 	}
 	/*use function*/
 	mount(func) {
-		/* istanbul ignore next */process.env.NODE_ENV!='travis' && assert(isAsync(func),'the arguments must be an Async function');
+		process.env.NODE_ENV!='travis' && assert(isAsync(func),'the arguments must be an Async function');
 		this.dispatchFunction.push(func);
 		return this;
 	}
@@ -96,6 +97,7 @@ class koax {
 					var s = await this.dispatchFunction[i]()
 				}
 				let copy = Object.assign(ctx.koax,_this.data);
+				/* istanbul ignore if */
 				!isAsync(next)?this[privateAsync](next):await next();
 			}catch(e){
 				throw new Error(e)

@@ -5,5 +5,6 @@
  */
 'use strict';
 exports = module.exports = func => {
+	/* istanbul ignore next */
 	return func.constructor.name === 'AsyncFunction';
 }
