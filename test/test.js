@@ -62,6 +62,7 @@ exports.test = module.exports.test = callback => {
 		app.use(koax.middleware());
 		app.use(approuter.routes());
 		let server = app.listen('8011');
+		console.log('test server start at 8011');
 		let testrp = await rp({
 			url:'http://localhost:8011/test',
 			method:'GET'

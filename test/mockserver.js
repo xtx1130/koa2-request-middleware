@@ -24,5 +24,6 @@ router.get('/testkoax2',async (ctx,next)=>{
 koa.use(koabody());
 koa.use(router.routes());
 let mockserver = koa.listen('8012');
+console.log('mock server start at 8012');
 
 exports = module.exports = mockserver;
