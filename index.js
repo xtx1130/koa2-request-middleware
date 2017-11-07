@@ -20,7 +20,7 @@ class koax {
 		this.dataCache = {};
 		this.dispatchFunction = [];
 		this[privateAsync] = async (next) => {
-			return await next();
+			await next();
 		}
 	}
 	//设置数据的key
