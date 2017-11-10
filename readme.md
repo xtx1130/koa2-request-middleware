@@ -55,29 +55,29 @@ This usage will just make request when come in router '/test',but the ctx.koax i
 
 ### 2.APIs
 
-+ koax.mount(Function) //Function must return a promise  
++ `koax.mount(Function)` //Function must return a promise  
 Use this API to mount request, and it will return koax instance
 
-+ koax.setName(String)  
++ `koax.setName(String)`  
 Use this API to set a name for response data, and it will return koax instance, if many requests has the same name, the last name's request will cover all the same name's data, because the data will mount on the instance of koa2
 
-+ koax.request(options,[name])  
++ `koax.request(options,[name])`  
 If you use the call chaining(koax.setName().request()),you can ignore the second argument,koax will cache the name you have setted.
 Options details please see [request-promise](https://github.com/request/request-promise) for more information, and it will return promise instance
 
-+ koax.cached([name])  
++ `koax.cached([name])`  
 If you use the call chaining(koax.setName().cached()),you can ignore the second argument.When you use cached(), koax will only make request for once time and store the data in memory, and next time will take the data in memory, and it will return koax instance
 
-+ koax.middleware()  
++ `koax.middleware()`  
 Make koax as a middleware in koa2
 
-+ koax.cancelCache([name])  
++ `koax.cancelCache([name])`  
 This api is forced to change one of the requests from cached to uncached, it will return koax instance
 
-+ koax.reCache([name])  
++ `koax.reCache([name])`  
 This api is forced to change one of the requests from uncached to cached, it will return koax instance
 
-+ koax.list  
++ `koax.list`  
 It will show you how many request is mounted on this instance of koax
 
 ### 3.request chain usage
