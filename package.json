@@ -6,6 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/cross-env NODE_ENV=travis node ./test/test.js",
     "debug": "./node_modules/.bin/cross-env NODE_ENV=debug nodemon ./test/test.js",
+    "lint": "standard --fix",
     "cov": "./node_modules/.bin/cross-env NODE_ENV=travis ./node_modules/.bin/babel-node ./node_modules/.bin/babel-istanbul cover ./test/test.js && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
@@ -41,10 +42,14 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "koa-body": "^2.3.0",
-    "koa-router": "^7.2.1",
     "coveralls": "^2.13.1",
     "istanbul": "^0.4.5",
+    "koa-body": "^2.3.0",
+    "koa-router": "^7.2.1",
+    "standard": "^11.0.0",
     "testing": "^1.1.1"
+  },
+  "standard": {
+    "ignore": []
   }
 }
