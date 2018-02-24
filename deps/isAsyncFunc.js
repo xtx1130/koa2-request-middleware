@@ -3,8 +3,8 @@
  *@author xtx1130
  *@return {boolean} ture\false
  */
-'use strict';
+'use strict'
 exports = module.exports = func => {
-	/* istanbul ignore next */
-	return func.constructor.name === 'AsyncFunction';
+  /* istanbul ignore next */
+  return func.constructor.name === 'AsyncFunction'
 }
