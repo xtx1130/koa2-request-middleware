@@ -1,6 +1,7 @@
 ## koa2-request-middleware
 [![Build Status](https://travis-ci.org/xtx1130/koa2-request-middleware.svg?branch=master)](https://travis-ci.org/xtx1130/koa2-request-middleware)
 [![Coverage Status](https://coveralls.io/repos/github/xtx1130/koa2-request-middleware/badge.svg?branch=master)](https://coveralls.io/github/xtx1130/koa2-request-middleware?branch=master)  
+<a href="https://communityinviter.com/apps/koa-js/koajs" rel="KoaJs Slack Community">![KoaJs Slack](https://img.shields.io/badge/Koa.Js-Slack%20Channel-Slack.svg?longCache=true&style=for-the-badge)</a>
 > a middleware for koa2 to separate request and response data's use
 
 ### 1.Usage
